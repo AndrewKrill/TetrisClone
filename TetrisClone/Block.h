@@ -9,6 +9,8 @@
 #include "Globals.h"
 #include "Block.h"
 
+using namespace std;
+
 class Block {
 private:
 	int relX;
@@ -18,11 +20,13 @@ private:
 
 public:
 
-	Block(int x, int y);
+	Block(int, int, int, int);
 	Block();
 	~Block();
-	void Render();
-	void Move(int a, int b);
+	void render();
+	void move(int a, int b);
+	int getX();
+	int getY();
 };
 
 

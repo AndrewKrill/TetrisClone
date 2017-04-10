@@ -8,21 +8,23 @@
 #include "Utilities_SDL.h"
 #include "Globals.h"
 #include <SDL.h>
-
+#include "Grid.h"
+#include "GameInstance.h"
 
 using namespace std;
 
-Block A = Block(1, 3);
-
 int main( int argc, char* args[]) {
 
+
+
 	initialize();
-	bool pressed = false;
+
+	GameInstance Game = GameInstance();
+
 
 	//Game Loop
 	while(run == true) {
 		//Inputs
-
 		while (SDL_PollEvent(&e) != 0) {
 			if (e.type == SDL_QUIT) {
 				run = false;
@@ -30,41 +32,16 @@ int main( int argc, char* args[]) {
 		}
 
 		//Keyboard Inputs
-		const Uint8* currentKeyStates = SDL_GetKeyboardState(NULL);
-		if (currentKeyStates[SDL_SCANCODE_UP]) {
-			if (!pressed) {
-				A.Move(0,-1);
-			}
-			pressed = true;
-		}
-		else if (currentKeyStates[SDL_SCANCODE_DOWN]) {
-			if (!pressed) {
-				A.Move(0,1);
-			}
-			pressed = true;
-		}
-		else if (currentKeyStates[SDL_SCANCODE_RIGHT]) {
-			if (!pressed) {
-				A.Move(1, 0);
-			}
-			pressed = true;
-		}
-		else if (currentKeyStates[SDL_SCANCODE_LEFT]) {
-			if (!pressed) {
-				A.Move(-1, 0);
-			}
-			pressed = true;
-		}
-		else {
-			pressed = false;
-		}
+		Game.inputs();
 
 		//Logic
-		
+		Game.logic();
 
 		//Render
-		A.Render();
-		
+		Game.render();
+
+		//Delay
+		SDL_Delay(100);
 		
 
 	}
